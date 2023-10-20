@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_boilerplate/core/navigation/navigation.dart';
+import 'package:flutter_boilerplate/core/navigation/screen.dart';
+import 'package:flutter_boilerplate/core/ui/widgets/error.dart';
+import 'package:flutter_boilerplate/core/ui/widgets/loading.dart';
 
-import '../../common/navigation/navigation.dart';
-import '../../common/navigation/screen.dart';
-import '../../common/ui/widgets/error.dart';
-import '../../common/ui/widgets/loading.dart';
 import 'splash_viewmodel.dart';
 
 class Splash extends StatefulWidget {

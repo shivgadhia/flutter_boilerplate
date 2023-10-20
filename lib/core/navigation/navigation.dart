@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_boilerplate/common/navigation/screen_arguments.dart';
+import 'package:flutter_boilerplate/core/navigation/screen_arguments.dart';
 
 import 'screen.dart';
 

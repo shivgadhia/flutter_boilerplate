@@ -1,11 +1,10 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_boilerplate/common/navigation/navigation.dart';
-import 'package:flutter_boilerplate/common/navigation/screen.dart';
-
-import 'common/navigation/screen_arguments.dart';
-import 'details/ui/content_details.dart';
-import 'home/ui/home.dart';
-import 'splash/ui/splash.dart';
+import 'package:flutter_boilerplate/core/navigation/navigation.dart';
+import 'package:flutter_boilerplate/core/navigation/screen.dart';
+import 'package:flutter_boilerplate/core/navigation/screen_arguments.dart';
+import 'package:flutter_boilerplate/feature/details/ui/content_details.dart';
+import 'package:flutter_boilerplate/feature/home/ui/home.dart';
+import 'package:flutter_boilerplate/feature/splash/ui/splash.dart';
 
 // Named routes are no longer recommended. Use a router instead?
 // https://docs.flutter.dev/ui/navigation

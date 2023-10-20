@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/common/navigation/navigation.dart';
-import 'package:flutter_boilerplate/details/ui/content_details_viewmodel.dart';
+import 'package:flutter_boilerplate/core/navigation/navigation.dart';
+import 'package:flutter_boilerplate/core/navigation/screen_arguments.dart';
+import 'package:flutter_boilerplate/core/ui/widgets/error.dart';
+import 'package:flutter_boilerplate/core/ui/widgets/loading.dart';
+import 'package:flutter_boilerplate/feature/details/ui/content_details_viewmodel.dart';
 
-import '../../common/navigation/screen_arguments.dart';
-import '../../common/ui/widgets/error.dart';
-import '../../common/ui/widgets/loading.dart';
 
 class ContentDetails extends StatefulWidget {
   final Navigation _navigation;

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:flutter_boilerplate/home/data/datasource/content_datasource.dart';
+import 'package:flutter_boilerplate/feature/home/data/datasource/content_datasource.dart';
 
 class LocalJsonFileContentDataSource extends ContentDataSource {
   @override

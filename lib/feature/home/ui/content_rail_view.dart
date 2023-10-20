@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/home/domain/model/content.dart';
+import 'package:flutter_boilerplate/feature/home/domain/model/content.dart';
 
 typedef OnRailItemClick = void Function(RailItem item);
 

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/common/navigation/screen.dart';
-import 'package:flutter_boilerplate/home/data/repository/real_content_repository.dart';
-import 'package:flutter_boilerplate/home/domain/model/content.dart';
-import 'package:flutter_boilerplate/home/ui/home_viewmodel.dart';
-
-import '../../common/navigation/navigation.dart';
-import '../../common/navigation/screen_arguments.dart';
-import '../../common/ui/widgets/error.dart';
-import '../../common/ui/widgets/loading.dart';
+import 'package:flutter_boilerplate/core/navigation/navigation.dart';
+import 'package:flutter_boilerplate/core/navigation/screen.dart';
+import 'package:flutter_boilerplate/core/navigation/screen_arguments.dart';
+import 'package:flutter_boilerplate/core/ui/widgets/error.dart';
+import 'package:flutter_boilerplate/core/ui/widgets/loading.dart';
+import 'package:flutter_boilerplate/feature/home/data/repository/real_content_repository.dart';
+import 'package:flutter_boilerplate/feature/home/domain/model/content.dart';
+import 'package:flutter_boilerplate/feature/home/ui/home_viewmodel.dart';
 import '../data/datasource/local_json_file_content_datasource.dart';
 import 'content_rail_view.dart';
 
