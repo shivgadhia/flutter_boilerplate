@@ -52,12 +52,13 @@ class _SplashState extends State<Splash> {
       switch (splashState.runtimeType) {
         case LoggedIn:
           {
-            widget._navigation.navigateTo(context, Screen.home);
+            widget._navigation
+                .navigateTo(context, Screen.home, popCurrent: true);
           }
           break;
         case NotLoggedIn:
           {
-            //TODO: widget._navigation.navigateTo(context, Screen.login);
+            //TODO: widget._navigation.navigateTo(context, Screen.login, popCurrent: true);
           }
           break;
         default:

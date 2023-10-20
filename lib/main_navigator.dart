@@ -16,8 +16,13 @@ class MainNavigator extends Navigation {
   }
 
   @override
-  navigateTo(BuildContext context, Screen screen, {ScreenArguments? args}) {
-    Navigator.pushNamed(context, screen.route, arguments: args);
+  navigateTo(BuildContext context, Screen screen,
+      {ScreenArguments? args, bool popCurrent = false}) {
+    if (popCurrent) {
+      Navigator.popAndPushNamed(context, screen.route, arguments: args);
+    } else {
+      Navigator.pushNamed(context, screen.route, arguments: args);
+    }
   }
 
   @override
