@@ -1,0 +1,94 @@
+{
+  "sections": [
+    {
+      "id": "101",
+      "type": "content-rail"
+    },
+    {
+      "id": "100",
+      "type": "content-rail"
+    },
+    {
+      "id": "102",
+      "type": "content-rail"
+    }
+  ],
+  "content-rails": [
+    {
+      "id": "100",
+      "title": "Latest",
+      "subtitle": "Our most recently added items",
+      "action": {
+        "label": "View all",
+        "filter-slug": "latest"
+      },
+      "itemIds": [
+        "E3muLm1MaBo",
+        "VoYbz6khGyY",
+        "25E90-LJ0XE",
+        "le7P5trPj-E"
+      ]
+    },
+    {
+      "id": "101",
+      "title": "Perfect for you",
+      "subtitle": "Some items we think you'll absolutely love",
+      "action": null,
+      "itemIds": [
+        "le7P5trPj-E",
+        "VoYbz6khGyY"
+      ]
+    },
+    {
+      "id": "102",
+      "title": "Popular",
+      "subtitle": "Some of our most popular items",
+      "action": {
+        "label": "View all",
+        "filter-slug": "popular"
+      },
+      "itemIds": [
+        "E3muLm1MaBo",
+        "25E90-LJ0XE"
+      ]
+    }
+  ],
+  "item-cards": [
+    {
+      "id": "E3muLm1MaBo",
+      "title": "Autumn nights",
+      "description": "Soft Jazz for relaxing autumn nights",
+      "caption": "",
+      "background": "https://i.ytimg.com/vi/E3muLm1MaBo/hqdefault.jpg",
+      "link": "https://www.youtube.com/watch?v=E3muLm1MaBo",
+      "locked": false
+    },
+    {
+      "id": "VoYbz6khGyY",
+      "title": "Bookstore ambience",
+      "description": "Bookstore cafe ambience and deep relaxing jazz",
+      "caption": "",
+      "background": "https://i.ytimg.com/vi/VoYbz6khGyY/hqdefault.jpg",
+      "link": "https://www.youtube.com/watch?v=VoYbz6khGyY",
+      "locked": false
+    },
+    {
+      "id": "25E90-LJ0XE",
+      "title": "Cozy coffee",
+      "description": "Cozy coffee shop ambience with instrumental jazz ",
+      "caption": "",
+      "background": "https://i.ytimg.com/vi/25E90-LJ0XE/hqdefault.jpg",
+      "link": "https://www.youtube.com/watch?v=25E90-LJ0XE",
+      "locked": false
+    },
+    {
+      "id": "le7P5trPj-E",
+      "title": "Hawaiian instrumental",
+      "description": "Relaxing hawaiian instrumental music with fall ambience",
+      "caption": "",
+      "background": "https://i.ytimg.com/vi/le7P5trPj-E/hqdefault.jpg",
+      "link": "https://www.youtube.com/watch?v=le7P5trPj-E",
+      "locked": false
+    }
+  ]
+}
