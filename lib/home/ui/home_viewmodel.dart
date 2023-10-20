@@ -2,9 +2,9 @@ import '../domain/model/content.dart';
 import '../domain/repository/content_repository.dart';
 
 class HomeViewModel {
-  final ContentRepository _repo;
+  final HomeContentRepository _repo;
 
-  HomeViewModel({required ContentRepository repo}) : _repo = repo;
+  HomeViewModel({required HomeContentRepository repo}) : _repo = repo;
 
   Future<HomeUiState> getHomeContent() async {
     var homeContent = await _repo.getContent();

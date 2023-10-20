@@ -2,11 +2,11 @@ import 'package:flutter_boilerplate/home/data/datasource/content_datasource.dart
 import 'package:flutter_boilerplate/home/domain/model/content.dart';
 import 'package:flutter_boilerplate/home/domain/repository/content_repository.dart';
 
-class RealContentRepository extends ContentRepository {
+class RealHomeContentRepository extends HomeContentRepository {
   final ContentDataSource _contentDataSource;
   Map? _data;
 
-  RealContentRepository({required ContentDataSource dataSource})
+  RealHomeContentRepository({required ContentDataSource dataSource})
       : _contentDataSource = dataSource;
 
   // This creates a simple caching layer

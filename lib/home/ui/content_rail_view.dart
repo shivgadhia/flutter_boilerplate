@@ -25,22 +25,27 @@ class ContentRailView extends StatelessWidget {
         SizedBox(
           height: 120,
           child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: uiModel.items.length,
-              itemBuilder: (context, index) {
-                RailItem thisItem = uiModel.items[index];
-                if (thisItem is ContentCard) {
-                  return _buildRailItem(context, thisItem);
-                } else {
-                  throw UnimplementedError();
-                }
-              }),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            scrollDirection: Axis.horizontal,
+            itemCount: uiModel.items.length,
+            itemBuilder: (context, index) =>
+                _buildRailItem(uiModel.items[index], context),
+          ),
         )
       ],
     );
   }
 
-  Widget _buildRailItem(BuildContext context, ContentCard item) {
+  Widget _buildRailItem(RailItem thisItem, BuildContext context) {
+    switch (thisItem.runtimeType) {
+      case ContentCard:
+        return _buildContentCard(context, thisItem as ContentCard);
+      default:
+        throw UnimplementedError();
+    }
+  }
+
+  Widget _buildContentCard(BuildContext context, ContentCard item) {
     return SizedBox(
       width: 220,
       child: InkWell(

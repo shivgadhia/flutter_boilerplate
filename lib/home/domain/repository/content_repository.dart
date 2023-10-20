@@ -1,5 +1,5 @@
 import '../model/content.dart';
 
-abstract class ContentRepository {
+abstract class HomeContentRepository {
   Future<List<Content>> getContent();
 }

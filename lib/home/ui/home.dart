@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/common/navigation/screen.dart';
 import 'package:flutter_boilerplate/home/data/repository/real_content_repository.dart';
 import 'package:flutter_boilerplate/home/domain/model/content.dart';
 import 'package:flutter_boilerplate/home/ui/home_viewmodel.dart';
 
-import '../../common/widgets/error.dart';
-import '../../common/widgets/loading.dart';
+import '../../common/navigation/navigation.dart';
+import '../../common/navigation/screen_arguments.dart';
+import '../../common/ui/widgets/error.dart';
+import '../../common/ui/widgets/loading.dart';
 import '../data/datasource/local_json_file_content_datasource.dart';
 import 'content_rail_view.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  final Navigation _navigation;
 
-  static const routeName = "/";
+  const Home({Key? key, required Navigation navigation})
+      : _navigation = navigation,
+        super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -23,7 +28,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     HomeViewModel vm = HomeViewModel(
-        repo: RealContentRepository(
+        repo: RealHomeContentRepository(
             dataSource: LocalJsonFileContentDataSource()));
     _uiState = vm.getHomeContent();
     super.initState();
@@ -35,26 +40,17 @@ class _HomeState extends State<Home> {
         future: _uiState,
         builder: (context, AsyncSnapshot<HomeUiState> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Loading();
+            return const Scaffold(
+              body: Loading(),
+            );
           } else if (snapshot.hasData) {
             return _buildContent(snapshot.data!);
           }
 
-          return const ErrorOccurred();
+          return const Scaffold(
+            body: ErrorOccurred(),
+          );
         });
-
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text("widget.title"),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(),
-      ),
-    );
   }
 
   Widget _buildContent(HomeUiState uiState) {
@@ -85,8 +81,16 @@ class _HomeState extends State<Home> {
       child: ContentRailView(
           uiModel: item,
           onRailItemClick: (item) async {
-            throw UnimplementedError();
+            switch (item.runtimeType) {
+              case ContentCard:
+                _navigateToDetails((item as ContentCard).id);
+            }
           }),
     );
+  }
+
+  void _navigateToDetails(String id) {
+    widget._navigation.navigateTo(context, Screen.details,
+        args: ScreenArguments({ScreenArguments.keyContentId: id}));
   }
 }
