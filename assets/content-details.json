@@ -1,0 +1,48 @@
+{
+  "details": [
+    {
+      "id": "E3muLm1MaBo",
+      "title": "Autumn nights",
+      "description": "Soft Jazz for relaxing autumn nights",
+      "caption": "",
+      "background": "https://i.ytimg.com/vi/E3muLm1MaBo/hqdefault.jpg",
+      "link": "https://www.youtube.com/watch?v=E3muLm1MaBo",
+      "locked": false,
+      "created": 1615241646,
+      "edited": 1615241646
+    },
+    {
+      "id": "VoYbz6khGyY",
+      "title": "Bookstore ambience",
+      "description": "Bookstore cafe ambience and deep relaxing jazz",
+      "caption": "",
+      "background": "https://i.ytimg.com/vi/VoYbz6khGyY/hqdefault.jpg",
+      "link": "https://www.youtube.com/watch?v=VoYbz6khGyY",
+      "locked": false,
+      "created": 1615241646,
+      "edited": 1615241646
+    },
+    {
+      "id": "25E90-LJ0XE",
+      "title": "Cozy coffee",
+      "description": "Cozy coffee shop ambience with instrumental jazz ",
+      "caption": "",
+      "background": "https://i.ytimg.com/vi/25E90-LJ0XE/hqdefault.jpg",
+      "link": "https://www.youtube.com/watch?v=25E90-LJ0XE",
+      "locked": false,
+      "created": 1615241646,
+      "edited": 1615241646
+    },
+    {
+      "id": "le7P5trPj-E",
+      "title": "Hawaiian instrumental",
+      "description": "Relaxing hawaiian instrumental music with fall ambience",
+      "caption": "",
+      "background": "https://i.ytimg.com/vi/le7P5trPj-E/hqdefault.jpg",
+      "link": "https://www.youtube.com/watch?v=le7P5trPj-E",
+      "locked": true,
+      "created": 1615241646,
+      "edited": 1615241646
+    }
+  ]
+}

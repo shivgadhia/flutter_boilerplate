@@ -1,5 +1,5 @@
 import '../domain/model/content.dart';
-import '../domain/repository/content_repository.dart';
+import '../domain/repository/home_content_repository.dart';
 
 class HomeViewModel {
   final HomeContentRepository _repo;

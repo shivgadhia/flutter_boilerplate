@@ -2,7 +2,7 @@
 
 import 'package:flutter_boilerplate/feature/home/data/datasource/content_datasource.dart';
 import 'package:flutter_boilerplate/feature/home/domain/model/content.dart';
-import 'package:flutter_boilerplate/feature/home/domain/repository/content_repository.dart';
+import 'package:flutter_boilerplate/feature/home/domain/repository/home_content_repository.dart';
 
 class RealHomeContentRepository extends HomeContentRepository {
   final ContentDataSource _contentDataSource;

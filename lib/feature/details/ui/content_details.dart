@@ -3,8 +3,9 @@ import 'package:flutter_boilerplate/core/navigation/navigation.dart';
 import 'package:flutter_boilerplate/core/navigation/screen_arguments.dart';
 import 'package:flutter_boilerplate/core/ui/widgets/error.dart';
 import 'package:flutter_boilerplate/core/ui/widgets/loading.dart';
+import 'package:flutter_boilerplate/feature/details/data/datasource/local_json_file_content_details_datasource.dart';
+import 'package:flutter_boilerplate/feature/details/data/repository/real_content_details_repository.dart';
 import 'package:flutter_boilerplate/feature/details/ui/content_details_viewmodel.dart';
-
 
 class ContentDetails extends StatefulWidget {
   final Navigation _navigation;
@@ -25,7 +26,9 @@ class _ContentDetailsState extends State<ContentDetails> {
   @override
   void didChangeDependencies() {
     final args = widget._navigation.getArgs(context);
-    ContentDetailsViewModel vm = ContentDetailsViewModel();
+    ContentDetailsViewModel vm = ContentDetailsViewModel(
+        repo: RealContentDetailsRepository(
+            dataSource: LocalJsonFileContentDetailsDataSource()));
     _uiState = vm.getDetails(args.get(ScreenArguments.keyContentId));
     super.didChangeDependencies();
   }
