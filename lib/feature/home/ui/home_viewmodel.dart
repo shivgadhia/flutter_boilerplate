@@ -1,20 +1,24 @@
+import 'package:flutter_boilerplate/core/ui/base_viewmodel.dart';
+
 import '../domain/model/content.dart';
 import '../domain/repository/home_content_repository.dart';
 
-class HomeViewModel {
+class HomeViewModel extends BaseViewModel<HomeUiState> {
   final HomeContentRepository _repo;
 
   HomeViewModel({required HomeContentRepository repo}) : _repo = repo;
 
-  Future<HomeUiState> getHomeContent() async {
-    var homeContent = await _repo.getContent();
-    return HomeUiState(content: homeContent, screenTitle: "Screen Title");
+  @override
+  Future<HomeUiState> startLoading() async {
+    return await _repo.getContent().then(
+        (value) => HomeUiState(content: value, screenTitle: "Screen Title"),
+        onError: (e) => HomeUiState(content: [], screenTitle: "Oops"));
   }
 }
 
-class HomeUiState {
+class HomeUiState extends ViewState {
   final List<Content> content;
   final String screenTitle;
 
-  const HomeUiState({required this.content, required this.screenTitle});
+  HomeUiState({required this.content, required this.screenTitle});
 }

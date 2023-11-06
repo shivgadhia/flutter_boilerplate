@@ -1,13 +1,16 @@
-class SplashViewModel {
+import 'package:flutter_boilerplate/core/ui/base_viewmodel.dart';
+
+class SplashViewModel extends BaseViewModel<SplashState> {
   SplashViewModel();
 
-  Future<SplashState> start() async {
+  @override
+  Future<SplashState> startLoading() async {
     await Future.delayed(const Duration(seconds: 2));
     return LoggedIn();
   }
 }
 
-class SplashState {
+class SplashState extends ViewState {
   SplashState._();
 }
 

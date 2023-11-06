@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/core/navigation/navigation.dart';
 import 'package:flutter_boilerplate/core/navigation/screen_arguments.dart';
+import 'package:flutter_boilerplate/core/ui/base_viewmodel_scaffold.dart';
 import 'package:flutter_boilerplate/core/ui/widgets/error.dart';
 import 'package:flutter_boilerplate/core/ui/widgets/loading.dart';
 import 'package:flutter_boilerplate/feature/details/data/datasource/local_json_file_content_details_datasource.dart';
@@ -19,47 +20,72 @@ class ContentDetails extends StatefulWidget {
 }
 
 class _ContentDetailsState extends State<ContentDetails> {
-  late Future<DetailsUiState> _uiState;
-
-  // initialising in didChangeDependencies instead of initState,
-  // so that we can reference Navigation from Widget.
-  @override
-  void didChangeDependencies() {
-    final args = widget._navigation.getArgs(context);
-    ContentDetailsViewModel vm = ContentDetailsViewModel(
-        repo: RealContentDetailsRepository(
-            dataSource: LocalJsonFileContentDetailsDataSource()));
-    _uiState = vm.getDetails(args.get(ScreenArguments.keyContentId));
-    super.didChangeDependencies();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: _uiState,
-        builder: (context, AsyncSnapshot snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Scaffold(
-              body: Loading(),
-            );
-          } else if (snapshot.hasData) {
-            return _buildContent(snapshot.data!);
-          }
-
-          return const Scaffold(
-            body: ErrorOccurred(),
-          );
-        });
+    final args = widget._navigation.getArgs(context);
+    var viewModel = ContentDetailsViewModel(
+        id: args.get(ScreenArguments.keyContentId),
+        repo: RealContentDetailsRepository(
+            dataSource: LocalJsonFileContentDetailsDataSource()));
+    return BaseViewModelScaffold.defaultScaffold(
+      createViewModel: (_) => viewModel,
+      contentView: (context, viewState) =>
+          _buildContent(viewState, onButtonClick: () {
+        viewModel.doSomething();
+      }),
+    );
   }
 
-  Widget _buildContent(DetailsUiState uiState) {
+  Widget _buildContent(DetailsUiState uiState,
+      {required Function() onButtonClick}) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(uiState.screenTitle),
-      ),
-      body: Center(
-        child: Text(uiState.details),
-      ),
+      appBar: AppBar(title: Text(uiState.screenTitle)),
+      body: _buildUiState(uiState, onButtonClick),
     );
+  }
+
+  Widget _buildUiState(DetailsUiState uiState, Function() onButtonClick) {
+    switch (uiState.runtimeType) {
+      case InitialDetailsViewState:
+        {
+          return Center(
+            child: Column(
+              children: [
+                Text((uiState as InitialDetailsViewState).details),
+                ElevatedButton(
+                  child: Text(uiState.ctaText),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.red,
+                    elevation: 0,
+                  ),
+                  onPressed: onButtonClick,
+                ),
+              ],
+            ),
+          );
+        }
+      case SecondDetailsViewState:
+        {
+          return Center(
+            child: Column(
+              children: [
+                Text((uiState as SecondDetailsViewState).details),
+              ],
+            ),
+          );
+        }
+
+      case ErrorViewState:
+        {
+          return const ErrorOccurred();
+        }
+
+      case LoadingViewState:
+        {
+          return const Loading();
+        }
+      default:
+        return Row();
+    }
   }
 }

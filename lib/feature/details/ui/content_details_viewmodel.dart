@@ -1,29 +1,68 @@
+import 'dart:async';
+
+import 'package:flutter_boilerplate/core/ui/base_viewmodel.dart';
 import 'package:flutter_boilerplate/feature/details/domain/model/content_detail.dart';
 import 'package:flutter_boilerplate/feature/details/domain/repository/content_details_repository.dart';
 
-class ContentDetailsViewModel {
+class ContentDetailsViewModel extends BaseViewModel<DetailsUiState> {
   final ContentDetailsRepository _repo;
+  final String _id;
 
-  ContentDetailsViewModel({required ContentDetailsRepository repo})
-      : _repo = repo;
+  ContentDetailsViewModel(
+      {required ContentDetailsRepository repo, required String id})
+      : _repo = repo,
+        _id = id;
 
-  Future<DetailsUiState> getDetails(String id) async {
-    return await _repo.getContentDetail(id).then((ContentDetail result) {
-      return DetailsUiState(
-          screenTitle: result.title, details: result.toDisplayValue());
-    }, onError: (e) {
-      return DetailsUiState(
-          screenTitle: "Oops",
-          details: "There was a problem loading content id: $id");
-    });
+  @override
+  Future<DetailsUiState> startLoading() async {
+    return await _repo.getContentDetail(_id).then(
+        (ContentDetail result) => InitialDetailsViewState(result.title,
+            details: result.toDisplayValue(), ctaText: "Do something"),
+        onError: (e) => ErrorViewState("Oops",
+            errorMessage: "There was a problem loading content id: $_id"));
+  }
+
+  void doSomething() async {
+    setState(LoadingViewState("..."));
+
+    await Future.delayed(const Duration(seconds: 3));
+
+    setState(SecondDetailsViewState("Yay",
+        details: "You clicked the button... the view state changed."));
   }
 }
 
-class DetailsUiState {
+abstract class DetailsUiState extends ViewState {
   final String screenTitle;
+
+  DetailsUiState(this.screenTitle);
+}
+
+class InitialDetailsViewState extends DetailsUiState {
+  final String details;
+  final String ctaText;
+
+  InitialDetailsViewState(String screenTitle,
+      {required this.details, required this.ctaText})
+      : super(screenTitle);
+}
+
+class SecondDetailsViewState extends DetailsUiState {
   final String details;
 
-  const DetailsUiState({required this.screenTitle, required this.details});
+  SecondDetailsViewState(String screenTitle, {required this.details})
+      : super(screenTitle);
+}
+
+class ErrorViewState extends DetailsUiState {
+  final String errorMessage;
+
+  ErrorViewState(String screenTitle, {required this.errorMessage})
+      : super(screenTitle);
+}
+
+class LoadingViewState extends DetailsUiState {
+  LoadingViewState(String screenTitle) : super(screenTitle);
 }
 
 extension _ContentDetailMapper on ContentDetail {

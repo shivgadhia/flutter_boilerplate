@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/core/navigation/navigation.dart';
 import 'package:flutter_boilerplate/core/navigation/screen.dart';
 import 'package:flutter_boilerplate/core/navigation/screen_arguments.dart';
-import 'package:flutter_boilerplate/core/ui/widgets/error.dart';
-import 'package:flutter_boilerplate/core/ui/widgets/loading.dart';
+import 'package:flutter_boilerplate/core/ui/base_viewmodel_scaffold.dart';
 import 'package:flutter_boilerplate/feature/home/data/repository/real_home_content_repository.dart';
 import 'package:flutter_boilerplate/feature/home/domain/model/content.dart';
 import 'package:flutter_boilerplate/feature/home/ui/home_viewmodel.dart';
+
 import '../data/datasource/local_json_file_content_datasource.dart';
 import 'content_rail_view.dart';
 
@@ -22,34 +22,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  late Future<HomeUiState> _uiState;
-
   @override
-  void initState() {
+  Widget build(BuildContext context) {
     HomeViewModel vm = HomeViewModel(
         repo: RealHomeContentRepository(
             dataSource: LocalJsonFileContentDataSource()));
-    _uiState = vm.getHomeContent();
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: _uiState,
-        builder: (context, AsyncSnapshot<HomeUiState> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Scaffold(
-              body: Loading(),
-            );
-          } else if (snapshot.hasData) {
-            return _buildContent(snapshot.data!);
-          }
-
-          return const Scaffold(
-            body: ErrorOccurred(),
-          );
-        });
+    return BaseViewModelScaffold.defaultScaffold(
+      createViewModel: (_) => vm,
+      contentView: (context, viewState) => _buildContent(viewState),
+    );
   }
 
   Widget _buildContent(HomeUiState uiState) {

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_boilerplate/core/navigation/navigation.dart';
 import 'package:flutter_boilerplate/core/navigation/screen.dart';
-import 'package:flutter_boilerplate/core/ui/widgets/error.dart';
-import 'package:flutter_boilerplate/core/ui/widgets/loading.dart';
+import 'package:flutter_boilerplate/core/ui/base_viewmodel_scaffold.dart';
 
 import 'splash_viewmodel.dart';
 
@@ -19,32 +17,12 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
-  late Future<SplashState> _uiState;
-
-  @override
-  void initState() {
-    SplashViewModel vm = SplashViewModel();
-    _uiState = vm.start();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: _uiState,
-        builder: (context, AsyncSnapshot<SplashState> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Scaffold(
-              body: Loading(),
-            );
-          } else if (snapshot.hasData) {
-            return _buildContent(snapshot.data!);
-          }
-
-          return const Scaffold(
-            body: ErrorOccurred(),
-          );
-        });
+    return BaseViewModelScaffold.defaultScaffold(
+        createViewModel: (_) => SplashViewModel(),
+        contentView: (context, viewState) => _buildContent(viewState)
+    );
   }
 
   Widget _buildContent(SplashState splashState) {
