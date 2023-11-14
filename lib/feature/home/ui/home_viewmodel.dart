@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_boilerplate/core/ui/base_viewmodel.dart';
 
 import '../domain/model/content.dart';
@@ -16,9 +17,12 @@ class HomeViewModel extends BaseViewModel<HomeUiState> {
   }
 }
 
-class HomeUiState extends ViewState {
+class HomeUiState extends ViewState with EquatableMixin {
   final List<Content> content;
   final String screenTitle;
 
   HomeUiState({required this.content, required this.screenTitle});
+
+  @override
+  List<Object?> get props => [content, screenTitle];
 }

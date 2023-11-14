@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_boilerplate/core/ui/base_viewmodel.dart';
 
 class SplashViewModel extends BaseViewModel<SplashState> {
@@ -10,8 +11,11 @@ class SplashViewModel extends BaseViewModel<SplashState> {
   }
 }
 
-class SplashState extends ViewState {
+class SplashState extends ViewState with EquatableMixin {
   SplashState._();
+
+  @override
+  List<Object?> get props => [];
 }
 
 class LoggedIn extends SplashState {
