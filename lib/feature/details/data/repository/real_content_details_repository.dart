@@ -13,23 +13,21 @@ class RealContentDetailsRepository extends ContentDetailsRepository {
     var data = await _dataSource.fetchContent();
     List allDetails = data["details"];
 
-    try {
-      Map thisItem = allDetails.firstWhere((element) {
-        return element["id"] == id;
-      }, orElse: () => {});
+    Map<String?, Object?> thisItem = allDetails.firstWhere((element) {
+      return element["id"] == id;
+    }, orElse: () => <String, Object>{});
 
-      return ContentDetail(
-        thisItem["id"],
-        thisItem["title"],
-        thisItem["description"],
-        thisItem["background"],
-        thisItem["link"],
-        thisItem["locked"],
-        BigInt.from(thisItem["created"]),
-        BigInt.from(thisItem["edited"]),
-      );
-    } catch (e) {
-      return Future.error(e);
-    }
+    if (thisItem.isEmpty) return Future.error(Exception("No details for $id"));
+
+    return ContentDetail(
+      thisItem["id"] as String,
+      thisItem["title"] as String,
+      thisItem["description"] as String,
+      thisItem["background"] as String,
+      thisItem["link"] as String,
+      thisItem["locked"] as bool,
+      BigInt.from(thisItem["created"] as int),
+      BigInt.from(thisItem["edited"] as int),
+    );
   }
 }

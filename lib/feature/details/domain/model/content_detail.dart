@@ -1,4 +1,6 @@
-class ContentDetail {
+import 'package:equatable/equatable.dart';
+
+class ContentDetail extends Equatable {
   final String id;
   final String title;
   final String description;
@@ -8,6 +10,16 @@ class ContentDetail {
   final BigInt createdAt;
   final BigInt editedAt;
 
-  ContentDetail(this.id, this.title, this.description, this.backgroundImageUrl,
-      this.linkUrl, this.locked, this.createdAt, this.editedAt);
+  const ContentDetail(
+      this.id,
+      this.title,
+      this.description,
+      this.backgroundImageUrl,
+      this.linkUrl,
+      this.locked,
+      this.createdAt,
+      this.editedAt);
+
+  @override
+  List<Object?> get props => [id];
 }

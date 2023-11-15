@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_boilerplate/feature/home/domain/model/content.dart';
 import 'package:flutter_boilerplate/feature/home/domain/repository/home_content_repository.dart';
 import 'package:flutter_boilerplate/feature/home/ui/home_viewmodel.dart';
@@ -19,12 +18,12 @@ void main() {
 
   test('startLoading SHOULD return empty content WHEN repo returns empty',
       () async {
-    var _repo = _MockHomeContentRepository([expectedContent]);
-    var _sut = HomeViewModel(repo: _repo);
+    var repo = _MockHomeContentRepository([expectedContent]);
+    var sut = HomeViewModel(repo: repo);
 
-    await _sut.startLoading();
+    await sut.startLoading();
 
-    expect(await _sut.viewState,
+    expect(await sut.viewState,
         HomeUiState(screenTitle: "Screen Title", content: [expectedContent]));
   });
 }
