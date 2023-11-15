@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/ui/screen_size.dart';
 import 'package:flutter_boilerplate/feature/home/domain/model/content.dart';
 
 typedef OnRailItemClick = void Function(RailItem item);
@@ -23,7 +24,7 @@ class ContentRailView extends StatelessWidget {
               style: Theme.of(context).textTheme.caption),
         ),
         SizedBox(
-          height: 120,
+          height: getCardHeight(context.getScreenSize()),
           child: ListView.builder(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             scrollDirection: Axis.horizontal,
@@ -47,7 +48,7 @@ class ContentRailView extends StatelessWidget {
 
   Widget _buildContentCard(BuildContext context, ContentCard item) {
     return SizedBox(
-      width: 220,
+      width: getCardWidth(context.getScreenSize()),
       child: InkWell(
         onTap: () {
           onRailItemClick(item);
@@ -87,5 +88,33 @@ class ContentRailView extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  double getCardWidth(ScreenSize screenSize) {
+    double cardWidth;
+    switch (screenSize) {
+      case ScreenSize.small:
+      case ScreenSize.normal:
+        cardWidth = 160;
+        break;
+      case ScreenSize.large:
+      case ScreenSize.extraLarge:
+        cardWidth = 391;
+    }
+    return cardWidth;
+  }
+
+  double getCardHeight(ScreenSize screenSize) {
+    double cardHeight;
+    switch (screenSize) {
+      case ScreenSize.small:
+      case ScreenSize.normal:
+        cardHeight = 213;
+        break;
+      case ScreenSize.large:
+      case ScreenSize.extraLarge:
+        cardHeight = 220;
+    }
+    return cardHeight;
   }
 }
