@@ -14,7 +14,7 @@ class ContentDetailsViewModel extends BaseViewModel<DetailsUiState> {
         _id = id;
 
   @override
-  Future<DetailsUiState> startLoading() async {
+  Future<DetailsUiState> initialState() async {
     return await _repo.getContentDetail(_id).then(
         (ContentDetail result) => InitialDetailsViewState(result.title,
             details: result.toDisplayValue(), ctaText: "Do something"),

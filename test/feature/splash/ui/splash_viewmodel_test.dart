@@ -9,7 +9,7 @@ void main() {
   });
 
   test('startLoading SHOULD return LoggedIn state', () async {
-    await _sut.startLoading();
-    expect(await _sut.viewState, LoggedIn());
+    await _sut.initialState();
+    expect(_sut.viewState, emits(LoggedIn()));
   });
 }

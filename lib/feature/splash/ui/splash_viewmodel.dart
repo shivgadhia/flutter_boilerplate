@@ -5,7 +5,7 @@ class SplashViewModel extends BaseViewModel<SplashState> {
   SplashViewModel();
 
   @override
-  Future<SplashState> startLoading() async {
+  Future<SplashState> initialState() async {
     await Future.delayed(const Duration(seconds: 2));
     return LoggedIn();
   }

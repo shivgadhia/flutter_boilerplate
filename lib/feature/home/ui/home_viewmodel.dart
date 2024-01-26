@@ -10,7 +10,7 @@ class HomeViewModel extends BaseViewModel<HomeUiState> {
   HomeViewModel({required HomeContentRepository repo}) : _repo = repo;
 
   @override
-  Future<HomeUiState> startLoading() async {
+  Future<HomeUiState> initialState() async {
     return await _repo.getContent().then(
         (value) => HomeUiState(content: value, screenTitle: "Screen Title"),
         onError: (e) => HomeUiState(content: [], screenTitle: "Oops"));

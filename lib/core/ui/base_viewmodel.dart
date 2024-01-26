@@ -1,26 +1,34 @@
 import 'dart:async';
 
-import 'package:flutter/widgets.dart';
+abstract class BaseViewModel<T extends ViewState> {
+  final _stateController = StreamController<T>();
 
-abstract class BaseViewModel<T extends ViewState> extends ChangeNotifier {
-  late Future<T> _viewState;
+  Stream<T> get viewState => _stateController.stream;
+
+  T? currentState;
 
   BaseViewModel() {
     _init();
   }
 
-  Future<T> startLoading();
+  Future<T> initialState();
 
   void _init() async {
-    _viewState = startLoading();
+    T state = await initialState();
+    _stateController.add(state);
+    currentState = state;
   }
 
   void setState(T state) async {
-    _viewState = Future.value(state);
-    notifyListeners();
+    if (!_stateController.isClosed) {
+      _stateController.add(state);
+      currentState = state;
+    }
   }
 
-  Future<T> get viewState => _viewState;
+  void dispose() {
+    _stateController.close();
+  }
 }
 
 abstract class ViewState {}

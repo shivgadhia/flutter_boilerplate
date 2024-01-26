@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/core/ui/base_viewmodel.dart';
-import 'package:flutter_boilerplate/core/ui/widgets/error.dart';
-import 'package:flutter_boilerplate/core/ui/widgets/loading.dart';
-import 'package:provider/provider.dart';
+
+import 'base_viewmodel.dart';
+import 'widgets/error.dart';
+import 'widgets/loading.dart';
 
 class BaseViewModelScaffold<T extends BaseViewModel> extends StatelessWidget {
   final CreateViewModel _createViewModel;
@@ -23,7 +23,8 @@ class BaseViewModelScaffold<T extends BaseViewModel> extends StatelessWidget {
         super(key: key);
 
   factory BaseViewModelScaffold.defaultScaffold(
-      {required CreateViewModel createViewModel, required ContentView contentView}) {
+      {required CreateViewModel createViewModel,
+      required ContentView contentView}) {
     return BaseViewModelScaffold(
         createViewModel: createViewModel,
         contentView: contentView,
@@ -37,22 +38,16 @@ class BaseViewModelScaffold<T extends BaseViewModel> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: _createViewModel,
-      builder: (context, child) {
-        var vm = context.watch<T>();
-        return FutureBuilder(
-            future: vm.viewState,
-            builder: (context, AsyncSnapshot snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return _loadingView(context);
-              } else if (snapshot.hasData) {
-                return _contentView(context, snapshot.data);
-              }
-              return _errorView(context);
-            });
-      },
-    );
+    return StreamBuilder(
+        stream: _createViewModel(context).viewState,
+        builder: (context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return _loadingView(context);
+          } else if (snapshot.hasData) {
+            return _contentView(context, snapshot.data);
+          }
+          return _errorView(context);
+        });
   }
 }
 

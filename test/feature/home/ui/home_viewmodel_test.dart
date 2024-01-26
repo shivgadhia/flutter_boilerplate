@@ -21,9 +21,11 @@ void main() {
     var repo = _MockHomeContentRepository([expectedContent]);
     var sut = HomeViewModel(repo: repo);
 
-    await sut.startLoading();
+    await sut.initialState();
 
-    expect(await sut.viewState,
-        HomeUiState(screenTitle: "Screen Title", content: [expectedContent]));
+    expect(
+        sut.viewState,
+        emits(HomeUiState(
+            screenTitle: "Screen Title", content: [expectedContent])));
   });
 }
