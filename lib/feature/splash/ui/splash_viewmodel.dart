@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_boilerplate/core/ui/base_viewmodel.dart';
 
-class SplashViewModel extends BaseViewModel<SplashState> {
+class SplashViewModel extends BaseViewModel<SplashState, ViewEvent> {
   SplashViewModel();
 
   @override

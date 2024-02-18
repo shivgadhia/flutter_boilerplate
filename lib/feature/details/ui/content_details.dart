@@ -20,31 +20,50 @@ class ContentDetails extends StatefulWidget {
 }
 
 class _ContentDetailsState extends State<ContentDetails> {
+  late ContentDetailsViewModel _vm;
+
+  @override
+  void dispose() {
+    _vm.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final args = widget._navigation.getArgs(context);
-    var viewModel = ContentDetailsViewModel(
+    _vm = ContentDetailsViewModel(
         id: args.get(ScreenArguments.keyContentId),
         repo: RealContentDetailsRepository(
             dataSource: LocalJsonFileContentDetailsDataSource()));
+
+    _vm.viewEvents.listen((event) {
+      if (event is ShowSnackbarMessage) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(event.message)));
+      }
+    });
+
     return BaseViewModelScaffold.defaultScaffold(
-      createViewModel: (_) => viewModel,
+      createViewModel: (_) => _vm,
       contentView: (context, viewState) =>
           _buildContent(viewState, onButtonClick: () {
-        viewModel.doSomething();
+        _vm.doSomething();
+      }, onButton2Click: () {
+        _vm.doSomethingElse();
       }),
     );
   }
 
   Widget _buildContent(DetailsUiState uiState,
-      {required Function() onButtonClick}) {
+      {required Function() onButtonClick, required Function() onButton2Click}) {
     return Scaffold(
       appBar: AppBar(title: Text(uiState.screenTitle)),
-      body: _buildUiState(uiState, onButtonClick),
+      body: _buildUiState(uiState, onButtonClick, onButton2Click),
     );
   }
 
-  Widget _buildUiState(DetailsUiState uiState, Function() onButtonClick) {
+  Widget _buildUiState(DetailsUiState uiState, Function() onButtonClick,
+      Function() onButton2Click) {
     switch (uiState.runtimeType) {
       case InitialDetailsViewState:
         {
@@ -59,6 +78,14 @@ class _ContentDetailsState extends State<ContentDetails> {
                     elevation: 0,
                   ),
                   onPressed: onButtonClick,
+                ),
+                ElevatedButton(
+                  child: Text(uiState.cta2Text),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.red,
+                    elevation: 0,
+                  ),
+                  onPressed: onButton2Click,
                 ),
               ],
             ),
